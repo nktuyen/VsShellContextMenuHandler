@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Vs.Models
+namespace Vs
 {
-    public class ProjectConfigurationPlatforms: Model
+    public class ProjectConfigurationPlatforms: ConfigurationPlatforms
     {
-        internal ProjectConfigurationPlatforms(string name = ""): base(ModelTypes.ProjectConfigurationPlatforms, name)
+        internal ProjectConfigurationPlatforms(string name = "", Project Project = null): base(ModelTypes.ProjectConfigurationPlatforms, name, Project)
         {
 
         }

@@ -7,7 +7,8 @@ namespace Vs
 {
     public class ProjectConfigurationPlatformsParser : Parser
     {
-        internal ProjectConfigurationPlatformsParser(SolutionFile solutionFile) : base(solutionFile)
+        public ProjectConfigurationPlatforms ProjectConfigurationPlatforms { get { return base.Model as ProjectConfigurationPlatforms; } }
+        internal ProjectConfigurationPlatformsParser(SolutionFile solutionFile, ProjectConfigurationPlatforms projectConfig) : base(solutionFile, projectConfig)
         {
 
         }

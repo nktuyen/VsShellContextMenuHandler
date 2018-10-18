@@ -7,7 +7,8 @@ namespace Vs
 {
     public class PlatformParser : Parser
     {
-        internal PlatformParser(SolutionFile solutionFile) : base(solutionFile)
+        public Platform Platform { get { return base.Model as Platform; } }
+        internal PlatformParser(SolutionFile solutionFile, Platform platform) : base(solutionFile, platform)
         {
 
         }

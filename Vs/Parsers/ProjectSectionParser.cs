@@ -7,7 +7,8 @@ namespace Vs
 {
     public class ProjectSectionParser : Parser
     {
-        internal ProjectSectionParser(SolutionFile solutionFile): base(solutionFile)
+        public ProjectSection ProjectSection { get { return base.Model as ProjectSection; } }
+        internal ProjectSectionParser(SolutionFile solutionFile, ProjectSection projectSection): base(solutionFile, projectSection)
         {
 
         }

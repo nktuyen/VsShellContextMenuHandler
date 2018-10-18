@@ -7,7 +7,7 @@ namespace Vs
 {
     public class Configuration : Model
     {
-        internal Configuration(string name = "") : base(ModelTypes.Configuration, name)
+        internal Configuration(string name = "", ConfigurationPlatforms configurationPlatforms=null) : base(ModelTypes.Configuration, name, configurationPlatforms)
         {
 
         }

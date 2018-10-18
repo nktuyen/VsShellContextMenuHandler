@@ -36,11 +36,36 @@ namespace Vs
             if (prj == null)
                 return false;
 
-            if (_projectCollection.ContainsKey(prj.Name))
-                return false;
+            if (prj.Name.Length > 0)
+            {
+                if (_projectCollection.ContainsKey(prj.Name))
+                    return false;
 
-            _projectCollection.Add(prj.Name, prj);
+                _projectCollection.Add(prj.Name, prj);
+            }
+
             _projectList.Add(prj);
+
+            return true;
+        }
+
+        internal bool Validate()
+        {
+            foreach(Project Project in _projectList)
+            {
+                if (Project.Valid)
+                {
+                    if (!_projectCollection.ContainsKey(Project.Name))
+                    {
+                        _projectCollection.Add(Project.Name, Project);
+                    }
+                }
+            }
+            _projectList.Clear();
+            foreach(Project Project in _projectCollection.Values)
+            {
+                _projectList.Add(Project);
+            }
 
             return true;
         }

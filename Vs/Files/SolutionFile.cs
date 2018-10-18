@@ -35,30 +35,33 @@ namespace Vs
             this.FormatVersionString = string.Empty;
         }
 
-        protected virtual Parser CreateParser(ModelTypes modelTypes)
+        protected virtual Parser CreateParser(Model model)
         {
-            switch (modelTypes)
+            if (null == model)
+                return null;
+
+            switch (model.Kind)
             {
                 case ModelTypes.Solution:
-                    return new SolutionParser(this);
+                    return new SolutionParser(this, model as Solution);
                 case ModelTypes.SolutionConfigurationPlatforms:
-                    return new SolutionConfigurationPlatformsParser(this);
+                    return new SolutionConfigurationPlatformsParser(this, model as SolutionConfigurationPlatforms);
                 case ModelTypes.Project:
-                    return new ProjectParser(this);
+                    return new ProjectParser(this, model as Project);
                 case ModelTypes.ProjectSection:
-                    return new ProjectSectionParser(this);
+                    return new ProjectSectionParser(this, model as ProjectSection);
                 case ModelTypes.ProjectConfigurationPlatforms:
-                    return new ProjectConfigurationPlatformsParser(this);
+                    return new ProjectConfigurationPlatformsParser(this, model as ProjectConfigurationPlatforms);
                 case ModelTypes.ProjectDependencies:
-                    return new ProjectDependenciesParser(this);
+                    return new ProjectDependenciesParser(this, model as ProjectDependencies);
                 case ModelTypes.Global:
-                    return new GlobalParser(this);
+                    return new GlobalParser(this, model as Global);
                 case ModelTypes.GlobalSection:
-                    return new GlobalSectionParser(this);
+                    return new GlobalSectionParser(this, model as Global);
                 case ModelTypes.Platform:
-                    return new PlatformParser(this);
+                    return new PlatformParser(this, model as Platform);
                 case ModelTypes.Configuration:
-                    return new ConfigurationParser(this);
+                    return new ConfigurationParser(this, model as Configuration);
                 default:
                     return null;
             }
@@ -102,7 +105,10 @@ namespace Vs
                             return;
                         }
 
-                        Parsers.Push(CreateParser(ModelTypes.Solution));
+                        this.Solution = new Solution(this.Name);
+                        this.Solution.Path = this.DirectoryPath;
+                        Parser parser = CreateParser(this.Solution);
+                        Parsers.Push(parser);
                     }
                     else
                     {
@@ -119,15 +125,13 @@ namespace Vs
 
                             if (parseResult.Model != null)
                             {
-                                Parsers.Push(CreateParser(parseResult.Model.Kind));
+                                Parsers.Push(CreateParser(parseResult.Model));
                                 parser = Parsers.Peek();
                             }
 
                             if ((parser.Model != null) && (parser.Model.Completed))
                             {
                                 parser = Parsers.Pop();
-                                if (parser.Model.Kind == ModelTypes.Solution)
-                                    this.Solution = (Solution)parser.Model;
                             }
 
                             strLine = strLine.Substring((int)(parseResult.Index + parseResult.Length));
@@ -140,6 +144,9 @@ namespace Vs
         {
             if (this.Solution != null)
             {
+                this.Solution.Completed = true;
+                this.Solution.Valid = this.Solution.Validate();
+
                 if (!this.Solution.Valid)
                 {
                     this.Solution = null;

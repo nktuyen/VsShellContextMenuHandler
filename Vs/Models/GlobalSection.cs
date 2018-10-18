@@ -7,7 +7,7 @@ namespace Vs
 {
     public class GlobalSection : Model
     {
-        internal GlobalSection(string name = "") : base(ModelTypes.GlobalSection, name)
+        internal GlobalSection(string name = "", Global global = null) : base(ModelTypes.GlobalSection, name, global)
         {
 
         }

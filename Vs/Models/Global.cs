@@ -7,9 +7,10 @@ namespace Vs
 {
     public class Global : Model
     {
-        internal Global(string name="") : base(ModelTypes.Global, name)
+        public GlobalSectionCollection Sections { get; internal set; }
+        internal Global(string name = "", Solution solution = null) : base(ModelTypes.Global, name, solution)
         {
-
+            Sections = new GlobalSectionCollection();
         }
         protected internal override bool Validate()
         {

@@ -7,7 +7,8 @@ namespace Vs
 {
     public class ConfigurationParser : Parser
     {
-        internal ConfigurationParser(SolutionFile solutionFile): base(solutionFile)
+        public Configuration Configuration { get { return base.Model as Configuration; } }
+        internal ConfigurationParser(SolutionFile solutionFile, Configuration config): base(solutionFile, config)
         {
 
         }

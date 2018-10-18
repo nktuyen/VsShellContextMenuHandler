@@ -10,9 +10,9 @@ namespace Vs
         internal Model Model { get; set; }
         internal bool Success { get; set; }
         internal string Content { get; set; }
-        internal long Index { get; set; }
-        internal long Length { get; set; }
-        internal ParseResult(bool success = true, long length = 0)
+        internal int Index { get; set; }
+        internal int Length { get; set; }
+        internal ParseResult(bool success = true, int length = 0)
         {
             Success = success;
             Content = string.Empty;
@@ -24,11 +24,12 @@ namespace Vs
 
     public class Parser
     {
-        public Model Model { get; protected set; }
+        public Model Model { get; internal set; }
         public File File { get; private set; }
-        public Parser(File file)
+        public Parser(File file, Model model = null)
         {
             this.File = file;
+            this.Model = model;
         }
 
         protected virtual ParseResult OnParse(string content) { return new ParseResult(true, content.Length ); }

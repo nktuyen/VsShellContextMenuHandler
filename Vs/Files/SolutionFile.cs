@@ -40,7 +40,7 @@ namespace Vs
             if (null == model)
                 return null;
 
-            switch (model.Kind)
+            switch (model.Kind.Value)
             {
                 case ModelTypes.Solution:
                     return new SolutionParser(this, model as Solution);
@@ -57,7 +57,7 @@ namespace Vs
                 case ModelTypes.Global:
                     return new GlobalParser(this, model as Global);
                 case ModelTypes.GlobalSection:
-                    return new GlobalSectionParser(this, model as Global);
+                    return new GlobalSectionParser(this, model as GlobalSection);
                 case ModelTypes.Platform:
                     return new PlatformParser(this, model as Platform);
                 case ModelTypes.Configuration:
@@ -98,15 +98,15 @@ namespace Vs
 
                     if (this.CurrentLine == 1)
                     {
-                        Regex regex = new Regex(@"Microsoft Visual Studio Solution File, Format Version (\d{2}){1}.(\d{2}){1}$");
+                        Regex regex = new Regex(@"Microsoft Visual Studio Solution File, Format Version \d+.(\d{2}){1}$");
                         if (!regex.IsMatch(strLine))
                         {
                             e.Cancel = true;
                             return;
                         }
 
-                        this.Solution = new Solution(this.Name);
-                        this.Solution.Path = this.DirectoryPath;
+                        this.Solution = new Solution(this.Name, this.Path);
+                        this.Solution.Directory = this.DirectoryPath;
                         Parser parser = CreateParser(this.Solution);
                         Parsers.Push(parser);
                     }

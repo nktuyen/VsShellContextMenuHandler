@@ -20,7 +20,6 @@ namespace Vs
             {
                 ParseResult parseResult = new ParseResult();
                 GlobalSection globalSection = new GlobalSection(string.Empty, this.Global);
-                this.Global.Sections.Add(globalSection);
                 parseResult.Model = globalSection;
                 return parseResult;
             }

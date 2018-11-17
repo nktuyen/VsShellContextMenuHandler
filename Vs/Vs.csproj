@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ConfigurationCollection.cs" />
     <Compile Include="Models\ConfigurationPlatforms.cs" />
     <Compile Include="Files\File.cs" />
     <Compile Include="Models\Configuration.cs" />
@@ -47,10 +48,16 @@
     <Compile Include="Models\GlobalSection.cs" />
     <Compile Include="Models\GlobalSectionCollection.cs" />
     <Compile Include="Models\Platform.cs" />
+    <Compile Include="Models\PlatformCollection.cs" />
     <Compile Include="Models\ProjectConfigurationPlatforms.cs" />
     <Compile Include="Models\ProjectDependencies.cs" />
     <Compile Include="Models\ProjectSection.cs" />
+    <Compile Include="Models\Properties.cs" />
+    <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\PropertyCollection.cs" />
     <Compile Include="Models\SolutionConfigurationPlatforms.cs" />
+    <Compile Include="Models\SolutionPropertiesSection.cs" />
+    <Compile Include="Models\Types.cs" />
     <Compile Include="Parsers\ConfigurationParser.cs" />
     <Compile Include="Parsers\GlobalParser.cs" />
     <Compile Include="Models\Model.cs" />

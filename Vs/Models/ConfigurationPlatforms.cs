@@ -7,7 +7,8 @@ namespace Vs
 {
     public abstract class ConfigurationPlatforms : Model
     {
-        internal ConfigurationPlatforms(ModelTypes modelTypes, string name = "", Project section = null): base(modelTypes, name, section)
+        public GlobalSection Section { get { return Parent as GlobalSection; } }
+        internal ConfigurationPlatforms(ModelTypes modelTypes, string name = "", GlobalSection section = null): base(modelTypes, name, section)
         {
 
         }

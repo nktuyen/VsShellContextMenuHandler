@@ -17,7 +17,7 @@ namespace Vs
         {
             ParseResult parseResult = base.OnParse(content);
 
-            Regex regex = new Regex("^Project(\\s*)([(]{1})(\\s*)([\"]{1})(\\s*)([{]{1})([0-9a-zA-Z]{8})([-]{1})([0-9a-zA-Z]{4})([-]{1})([0-9a-zA-Z]{4})([-]{1})([0-9a-zA-Z]{4})([-]{1})([0-9a-zA-Z]{12})([}]{1})(\\s*)([\"]{1})([)]{1})(\\s*)([=]{1})(\\s*)([\"]{1})([0-9a-zA-Z]{1,255})([\"]{1})(\\s*)([,]{1})(\\s*)([\"]{1})([0-9a-zA-Z\\]{1,255})([\"]{1})(\\s*)");
+            Regex regex = new Regex("^Project(\\s*)([(]{1})(\\s*)([\"]{1})(\\s*)([{]{1})([0-9a-zA-Z]{8})([-]{1})([0-9a-zA-Z]{4})([-]{1})([0-9a-zA-Z]{4})([-]{1})([0-9a-zA-Z]{4})([-]{1})([0-9a-zA-Z]{12})([}]{1})(\\s*)([\"]{1})([)]{1})(\\s*)([=]{1})(\\s*)([\"]{1})([0-9a-zA-Z_]{1,255})([\"]{1})(\\s*)([,]{1})(\\s*)([\"]{1})([0-9a-zA-Z_\\]{1,255})([\"]{1})(\\s*)");
             if (regex.IsMatch(content))
             {
                 int nIndex = content.IndexOf("Project") + ("Project".Length);
@@ -37,7 +37,7 @@ namespace Vs
                     if((strTemp.Length > 0) && (null != this.Model))
                     {
                         Project project = this.Model as Project;
-                        project.SolutionGuid = strTemp.Trim();
+                        //project.SolutionGuid = strTemp.Trim();
                     }
                 }
 
@@ -78,7 +78,7 @@ namespace Vs
                         if ((strTemp.Length > 0) && (null != this.Model))
                         {
                             Project project = this.Model as Project;
-                            project.Path = strTemp;
+                            project.Path = project.Solution.Directory + "\\" + strTemp;
                         }
                     }
 

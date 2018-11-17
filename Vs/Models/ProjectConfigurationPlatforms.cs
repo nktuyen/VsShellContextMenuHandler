@@ -7,7 +7,7 @@ namespace Vs
 {
     public class ProjectConfigurationPlatforms: ConfigurationPlatforms
     {
-        internal ProjectConfigurationPlatforms(string name = "", Project Project = null): base(ModelTypes.ProjectConfigurationPlatforms, name, Project)
+        internal ProjectConfigurationPlatforms(string name = "", GlobalSection section = null): base(ModelTypes.ProjectConfigurationPlatforms, name, section)
         {
 
         }

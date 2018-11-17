@@ -7,7 +7,7 @@ namespace Vs
 {
     public class ProjectSection : Model
     {
-        internal ProjectSection(string name = ""):base(ModelTypes.ProjectSection, name)
+        internal ProjectSection(string name = "", Project project = null):base(ModelTypes.ProjectSection, name, project)
         {
 
         }

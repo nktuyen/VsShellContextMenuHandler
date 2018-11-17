@@ -8,23 +8,18 @@ namespace Vs
     public class Solution : Model
     {
         public ProjectCollection Projects { get; protected set; }
-        public string Path { get; internal set; }
-        public Global Global { get; internal set; }
-        public Solution(string name = "") : base(ModelTypes.Solution, name)
+        public PlatformCollection Platforms { get; private set; }
+        public ConfigurationCollection Configurations { get; private set; }
+        public string Directory { get; internal set; }
+        public string Path { get { if(null!= Directory && string.Empty!= Directory) return Directory + "\\" + Name; return string.Empty; } }
+        public Solution(string name = "", string path = "") : base(ModelTypes.Solution, name)
         {
             Projects = new ProjectCollection();
-        }
-
-        internal Project AddProject(string name)
-        {
-            Project prj = Projects.FindProject(name);
-            if (prj == null)
-            {
-                prj = new Project(name);
-                Projects.Add(prj);
-            }
-
-            return prj;
+            Platforms = new PlatformCollection();
+            Configurations = new ConfigurationCollection();
+            Directory = string.Empty;
+            Properties.Add(new Property(Vs.Properties.DIRECTORY));
+            Properties.Add(new Property(Vs.Properties.PATH));
         }
 
         protected internal override bool Validate()

@@ -17,11 +17,6 @@ namespace Test
             InitializeComponent();
         }
 
-        private void InsertModel(Model model, TreeNode treeNode)
-        {
-            TreeNode newNode = treeNode.Nodes.Add(model.Name);
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             
@@ -31,6 +26,8 @@ namespace Test
         {
             SolutionFile solutionFile = new SolutionFile(textBox1.Text);
             treeView1.Nodes.Clear();
+            listView1.Items.Clear();
+            listView1.Columns.Clear();
             if (!solutionFile.Load())
                 return;
 
@@ -38,10 +35,49 @@ namespace Test
             TreeNode root = treeView1.Nodes.Add(solution.Name);
             root.Tag = solution;
 
+            TreeNode platformsNode = root.Nodes.Add("Platforms");
+            foreach(Platform platform in solution.Platforms)
+            {
+                TreeNode newNode = platformsNode.Nodes.Add(platform.Name);
+                newNode.Tag = platform;
+            }
+
+            TreeNode configsNode = root.Nodes.Add("Configurations");
+            foreach (Configuration configuration in solution.Configurations)
+            {
+                TreeNode newNode = configsNode.Nodes.Add(configuration.Name);
+                newNode.Tag = configuration;
+            }
+
+            TreeNode prjsNode = root.Nodes.Add("Projects");
             foreach (Project project in solution.Projects)
             {
-                InsertModel(project, root);
+                TreeNode prjNode = prjsNode.Nodes.Add(project.Name);
+                prjNode.Tag = project;
+
+                TreeNode platforms = prjNode.Nodes.Add("Plarforms");
+                foreach(Platform platform in project.Platforms)
+                {
+                    TreeNode newNode = platforms.Nodes.Add(platform.Name);
+                    newNode.Tag = platform;
+                }
+
+                TreeNode configs = prjNode.Nodes.Add("Configurations");
+                foreach (Configuration configuration in project.Configurations)
+                {
+                    TreeNode newNode = configs.Nodes.Add(configuration.Name);
+                    newNode.Tag = configuration;
+                }
             }
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            listView1.Items.Clear();
+            listView1.Columns.Clear();
+
+            //
+
         }
     }
 }

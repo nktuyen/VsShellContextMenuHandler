@@ -28,6 +28,14 @@ namespace Vs
                 return _projectCollection[name];
             }
 
+            foreach(Project project in _projectList)
+            {
+                if((project.Name.CompareTo(name)==0) || (project.Guid.CompareTo(name) == 0))
+                {
+                    return project;
+                }
+            }
+
             return null;
         }
 

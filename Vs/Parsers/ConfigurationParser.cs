@@ -12,9 +12,9 @@ namespace Vs
         {
 
         }
-        protected override ParseResult OnParse(string lineData)
+        protected override ParseResult OnParse(string content)
         {
-            return base.OnParse(lineData);
+            return base.OnParse(content);
         }
     }
 }

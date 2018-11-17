@@ -8,6 +8,7 @@ namespace Vs
     public class Global : Model
     {
         public GlobalSectionCollection Sections { get; internal set; }
+        public Solution Solution { get { return Parent as Solution; } }
         internal Global(string name = "", Solution solution = null) : base(ModelTypes.Global, name, solution)
         {
             Sections = new GlobalSectionCollection();

@@ -7,13 +7,19 @@ namespace Vs
 {
     public class Project : Model
     {
-        public string SolutionGuid { get; internal set; }
+        public Solution Solution { get { return Parent as Solution; } }
+        public PlatformCollection Platforms { get; private set; }
+        public ConfigurationCollection Configurations { get; private set; }
         public string Guid { get; internal set; }
         public string Path { get; internal set; }
-        public string AbsolutePath { get; internal set; }
         public Project(string name = "", Solution solution = null) :base (ModelTypes.Project, name, solution)
         {
-            
+            Platforms = new PlatformCollection();
+            Configurations = new ConfigurationCollection();
+            Guid = string.Empty;
+            Path = string.Empty;
+            Properties.Add(new Property(Vs.Properties.PATH));
+            Properties.Add(new Property(Vs.Properties.GUID));
         }
 
         protected internal override bool Validate()

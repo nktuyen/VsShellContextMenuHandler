@@ -29,6 +29,12 @@ namespace Vs
                 return _sectionCollection[name];
             }
 
+            foreach(GlobalSection section in _sectionList)
+            {
+                if (section.Name.CompareTo(name) == 0)
+                    return section;
+            }
+
             return null;
         }
 
